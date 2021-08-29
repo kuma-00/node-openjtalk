@@ -1,16 +1,16 @@
 {
-	"name"            : "openjtalk",
-	"version"         : "0.1.6",
-	"description"     : "TTS using OpenJTalk",
-	"main"            : "openjtalk.js",
-	"dependencies"    : {
-		"uuid-v4" : "*"
+	"name": "openjtalk",
+	"version": "0.1.6",
+	"description": "TTS using OpenJTalk",
+	"main": "rewrite.js",
+	"dependencies": {
+		"uuid-v4": "^0.1.0"
 	},
-	"devDependencies" : {},
-	"scripts"         : {
-		"test"    : "node test/test",
-		"install" : "make"
+	"devDependencies": {},
+	"scripts": {
+		"test": "node test/rewrite/test",
+		"install": "make"
 	},
-	"repository"      : "https://github.com/hecomi/node-openjtalk",
-	"author"          : "hecomi"
+	"repository": "https://github.com/hecomi/node-openjtalk",
+	"author": "hecomi"
 }
