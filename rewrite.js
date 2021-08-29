@@ -19,6 +19,7 @@ class OpenJTalk {
   }
 
   async speak(text, options) {
+    text = text.replace(";","");
     Object.assign(this, options)
     const wavFileName = uuid() + '.wav';
     /**
@@ -27,6 +28,7 @@ class OpenJTalk {
      * gv_weight_lf0
      * additional_half_tone
      * alpha
+     * speech_speed
      */
     let ojtCmd = this.openjtalk_bin;
     const cmdOptions = {
@@ -41,7 +43,7 @@ class OpenJTalk {
       jf: this.gv_weight_lf0,
       z: this.audio_buff_size,
       fm: this.additional_half_tone,
-      r: this.speech_speed_rate,
+      r: this.speech_speed,
       ow: path.join(this.wav_dir, wavFileName)
     };
     for (let option in cmdOptions) {
