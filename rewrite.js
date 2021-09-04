@@ -4,6 +4,7 @@ const fs = require('fs').promises;
 const util = require('util');
 const childProcess = require('child_process');
 const exec = util.promisify(childProcess.exec);
+const { Readable } = require('stream');
 
 // デフォルトパラメタ
 const DefaultOptions = {
@@ -19,7 +20,7 @@ class OpenJTalk {
   }
 
   async speak(text, options) {
-    text = text.replace(";","");
+    text = text.replace(";", "");
     Object.assign(this, options)
     const wavFileName = uuid() + '.wav';
     /**
@@ -61,6 +62,15 @@ class OpenJTalk {
     } catch (error) {
       throw error;
     }
+  }
+
+  async speakStream(text, options) {
+    const buf = this.speak(text, options);
+    const readable = new Readable();
+    readable._read = () => { };
+    readable.push(buf);
+    readable.push(null);
+    return readable;
   }
 }
 
