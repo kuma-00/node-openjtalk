@@ -6,6 +6,7 @@ const mei3 = new OpenJTalk({ htsvoice: './voice/mei/mei_happy.htsvoice' });
 (async () => {
   const result = await mei1.speak("これはテストです。");
   console.log(result);
+  console.log(await mei1.speakStream("これはテストです。"));
 })();
 
 /*

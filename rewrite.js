@@ -66,7 +66,13 @@ class OpenJTalk {
 
   async speakStream(text, options) {
     const buf = this.speak(text, options);
-    return Readable.from(buf);
+     const stream = new Readable({
+      read() {
+        this.push(buf);
+        this.push(null);
+      }
+    });
+    return stream;
   }
 }
 
