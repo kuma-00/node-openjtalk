@@ -90,6 +90,7 @@ class OpenJTalk {
         this.push(null);
       }
     });
+    
     return stream;
   }
 }
