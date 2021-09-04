@@ -14,6 +14,24 @@ const DefaultOptions = {
   wav_dir: '.',
 };
 
+const HtsvoiceFiles = {
+  M001: path.join(__dirname, "/voice/hts_voice_nitech_jp_atr503_m001-1.05/nitech_jp_atr503_m001.htsvoice"),
+  MEI_ANGRY: path.join(__dirname, "/voice/mei/mei_angry.htsvoice"),
+  MEI_BASHFUL: path.join(__dirname, "/voice/mei/mei_bashful.htsvoice"),
+  MEI_HAPPY: path.join(__dirname, "/voice/mei/mei_happy.htsvoice"),
+  MEI_NORMAL: path.join(__dirname, "/voice/mei/mei_normal.htsvoice"),
+  MEI_SAD: path.join(__dirname, "/voice/mei/mei_sad.htsvoice"),
+  TOHOKU_ANGRY: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-angry.htsvoice"),
+  TOHOKU_HAPPY: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-happy.htsvoice"),
+  TOHOKU_NORMAL: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-normal.htsvoice"),
+  TOHOKU_SAD: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-sad.htsvoice"),
+  TAKUMI_ANGRY: path.join(__dirname, "/voice/takumi/takumi_angry.htsvoice"),
+  TAKUMI_HAPPY: path.join(__dirname, "/voice/takumi/takumi_happy.htsvoice"),
+  TAKUMI_NORMAL: path.join(__dirname, "/voice/takumi/takumi_normal.htsvoice"),
+  TAKUMI_SAD: path.join(__dirname, "/voice/takumi/takumi_sad.htsvoice"),
+  SLT: path.join(__dirname, "/voice/slt/cmu_us_arctic_slt.htsvoice")
+}
+
 class OpenJTalk {
   constructor(options) {
     Object.assign(this, DefaultOptions, options)
@@ -66,7 +84,7 @@ class OpenJTalk {
 
   async speakStream(text, options) {
     const buf = this.speak(text, options);
-     const stream = new Readable({
+    const stream = new Readable({
       read() {
         this.push(buf);
         this.push(null);
@@ -76,4 +94,4 @@ class OpenJTalk {
   }
 }
 
-module.exports = OpenJTalk;
+module.exports = { OpenJTalk, HtsvoiceFiles };

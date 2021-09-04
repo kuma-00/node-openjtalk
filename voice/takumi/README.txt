@@ -1,5 +1,5 @@
 ===============================================================================
-                          HTS Voice "Mei" version 1.5
+                         HTS Voice "Takumi" version 1.0
                            release December 25, 2018
 
 
@@ -10,12 +10,12 @@ The work is released as a part of MMDAgent (http://www.mmdagent.jp/).
 *******************************************************************************
 
 # ----------------------------------------------------------------- #
-#           HTS Voice "Mei"                                         #
+#           HTS Voice "Takumi"                                      #
 #           released by MMDAgent Project Team                       #
 #           http://www.mmdagent.jp/                                 #
 # ----------------------------------------------------------------- #
 #                                                                   #
-#  Copyright (c) 2009-2018  Nagoya Institute of Technology          #
+#  Copyright (c) 2017-2018  Nagoya Institute of Technology          #
 #                           Department of Computer Science          #
 #                                                                   #
 # Some rights reserved.                                             #
