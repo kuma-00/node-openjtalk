@@ -53,7 +53,7 @@ class OpenJTalk {
     const cmdOptions = {
       m: this.htsvoice,
       x: this.dic_dir,
-      s: 48000,
+      s: this.sampling_rate,
       p: this.pitch,
       a: this.alpha,
       b: this.beta,
@@ -83,76 +83,14 @@ class OpenJTalk {
   }
 
   async speakStream(text, options) {
-    class SynthesizedSoundStream extends Readable {
-      constructor(wave) {
-        super();
-        this.wave_p = wave.then(wave => {
-          this.buf = wave.data;
-          if (wave.sampleRate != 48000) {
-            this._emitError(new Error(`Invalid sampleRate(Required 48000): ${wave.sampleRate}`));
-            return false;
-          }
-          return true;
-        }, err => {
-          this._emitError(err);
-          return false;
-        });
-      }
-      _emitError(err) {
-        if (!this.destroyed) {
-          this.emit("error", err);
-        }
-      }
-      _read(size = 48000 * 2 * 2 / 1000 * 20) {
-        if (!this.buf) {
-          this.wave_p.then((continues) => {
-            if (continues) {
-              this._read(size);
-            }
-          })
-          return;
-        }
-        const offset = this.pos;
-        let end = Math.ceil(size / 4);
-        if (end + offset > this.buf.length) {
-          end = this.buf.length - offset;
-        }
-        const buf = Buffer.alloc(end * 4);
-        const dst = new Int16Array(buf.buffer);
-        for (let i = 0; i < end; ++i) {
-          const elem = this.buf[i + offset];
-          dst[i * 2] = elem;
-          dst[i * 2 + 1] = elem;
-        }
+    const buf = await this.speak(text, options);
+    const stream = new Readable({
+      read() {
         this.push(buf);
-        this.pos += end;
-        if (this.pos == this.buf.length) {
-          this.buf = null;
-          this.push(null);
-        }
-      }
-      _destroy() {
-        this.wave_p = Promise.resolve(false);
-      }
-    }
-    const wav = new Promise((resolve, reject) => {
-      try {
-        this.speak(text, options).then(buffer => {
-          const wave = {
-            raw_data: buffer,
-            data: new Int16Array(buffer.buffer),
-            bitDepth: 16,
-            numChannels: 1,
-            sampleRate:48000
-          };
-          resolve(wave);
-        });
-      } catch (err) {
-        reject(err);
+        this.push(null);
       }
     });
-    // const buf = await this.speak(text, options);
-    const stream = new SynthesizedSoundStream(wav);
+    
     return stream;
   }
 }
