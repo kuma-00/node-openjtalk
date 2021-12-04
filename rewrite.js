@@ -23,13 +23,12 @@ const HtsvoiceFiles = {
   MEI_SAD: path.join(__dirname, "/voice/mei/mei_sad.htsvoice"),
   TOHOKU_ANGRY: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-angry.htsvoice"),
   TOHOKU_HAPPY: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-happy.htsvoice"),
-  TOHOKU_NORMAL: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-normal.htsvoice"),
+  TOHOKU_NEUTRAL: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-neutral.htsvoice"),
   TOHOKU_SAD: path.join(__dirname, "/voice/htsvoice-tohoku-f01-master/tohoku-f01-sad.htsvoice"),
   TAKUMI_ANGRY: path.join(__dirname, "/voice/takumi/takumi_angry.htsvoice"),
   TAKUMI_HAPPY: path.join(__dirname, "/voice/takumi/takumi_happy.htsvoice"),
   TAKUMI_NORMAL: path.join(__dirname, "/voice/takumi/takumi_normal.htsvoice"),
-  TAKUMI_SAD: path.join(__dirname, "/voice/takumi/takumi_sad.htsvoice"),
-  SLT: path.join(__dirname, "/voice/slt/cmu_us_arctic_slt.htsvoice")
+  TAKUMI_SAD: path.join(__dirname, "/voice/takumi/takumi_sad.htsvoice")
 }
 
 class OpenJTalk {
@@ -38,7 +37,7 @@ class OpenJTalk {
   }
 
   async speak(text, options) {
-    text = text.replace(";", "");
+    text = text.replace(/;|:/, "");
     Object.assign(this, options)
     const wavFileName = uuid() + '.wav';
     /**

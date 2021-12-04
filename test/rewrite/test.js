@@ -8,6 +8,13 @@ const mei3 = new OpenJTalk({ htsvoice: './voice/mei/mei_happy.htsvoice' });
   const result = await mei1.speak("これはテストです。");
   console.log(result);
   console.log(await mei1.speakStream("これはテストです。"));
+	console.log("all hts file check");
+	for await(const [key,htsvoice] of Object.entries(HtsvoiceFiles)){
+		const ojt = new OpenJTalk({htsvoice});
+		const res = await ojt.speak("test");
+		console.log(key,res.length);
+	}
+	console.log("all hts file ok!");
 })();
 
 /*
